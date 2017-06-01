@@ -3,6 +3,8 @@ package com.example.a2018bsharrer.final_project;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -18,6 +20,8 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -123,6 +127,22 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 rootView = inflater.inflate(R.layout.fragment_jacob, container, false);
+
+                RecyclerView rvContacts = (RecyclerView)rootView.findViewById(R.id.rvContacts);
+
+                // Initialize contacts
+                ArrayList<Tweet> mTweet = Tweet.createImprovedList();
+                // Create adapter passing in the sample user data
+                TweetAdapter mAdapter = new TweetAdapter(getActivity(), mTweet);
+                // Attach the adapter to the recyclerview to populate items
+                rvContacts.setAdapter(mAdapter);
+                // Set layout manager to position the items
+                rvContacts.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+
+
+
             }
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));

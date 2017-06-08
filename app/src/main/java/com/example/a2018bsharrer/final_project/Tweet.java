@@ -63,19 +63,6 @@ public class Tweet {
     }
     public static ArrayList<Tweet> createTweetList(){
         ArrayList<Tweet> contacts = new ArrayList<Tweet>();
-        TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient();
-        StatusesService statusesService = twitterApiClient.getStatusesService();
-        Call<Tweet> call = statusesService.show(524971209851543553L, null, null, null);
-        call.enqueue(new Callback<Tweet>() {
-            @Override
-            public void success(Result<Tweet> result) {
-                //Do something with result
-            }
-
-            public void failure(TwitterException exception) {
-                //Do something on failure
-            }
-        });
         return contacts;
     }
 }

@@ -122,8 +122,11 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView;
-            if (getArguments().getInt(ARG_SECTION_NUMBER)!=1) {
+            if (getArguments().getInt(ARG_SECTION_NUMBER)==1) {
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            }
+            if(getArguments().getInt(ARG_SECTION_NUMBER)==2){
+                rootView = inflater.inflate(R.layout.fragment_ben, container, false);
             }
             else{
                 rootView = inflater.inflate(R.layout.fragment_jacob, container, false);
@@ -144,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }

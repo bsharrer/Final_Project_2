@@ -2,4 +2,6 @@
     <string name="app_name">Final_Project</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">k1FFqkQtUmyWTXdLvwqLvhMcf</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">	lYJg6iTAhgQCPdUk7Mmp09tTrh6K4fTKRmSmkmHWjn7kcRi4tD</string>
 </resources>

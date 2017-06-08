@@ -1,10 +1,11 @@
 package com.example.a2018bsharrer.final_project;
 
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -18,20 +19,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.twitter.sdk.android.tweetui.UserTimeline;
+
+import com.twitter.sdk.android.core.Twitter;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * The {@link PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     * {@link FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -39,12 +49,18 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private int mPosition=0;
+    private int mPosition = 0;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient mClients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Twitter.initialize(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
 
 
@@ -99,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static int mPosition=0;
+        private static int mPosition = 0;
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
@@ -111,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
-            mPosition=sectionNumber;
+            mPosition = sectionNumber;
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -122,15 +140,15 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView;
-            if (getArguments().getInt(ARG_SECTION_NUMBER)!=1) {
+            if (getArguments().getInt(ARG_SECTION_NUMBER) != 1) {
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            }
-            else{
+            } else {
                 rootView = inflater.inflate(R.layout.fragment_jacob, container, false);
 
-                RecyclerView rvContacts = (RecyclerView)rootView.findViewById(R.id.rvContacts);
 
-                // Initialize contacts
+                ListView rvContacts = (ListView) rootView.findViewById(R.id.listid);
+
+                /*
                 ArrayList<Tweet> mTweet = Tweet.createImprovedList();
                 // Create adapter passing in the sample user data
                 TweetAdapter mAdapter = new TweetAdapter(getActivity(), mTweet);
@@ -138,9 +156,14 @@ public class MainActivity extends AppCompatActivity {
                 rvContacts.setAdapter(mAdapter);
                 // Set layout manager to position the items
                 rvContacts.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
+                */
+                final UserTimeline userTimeline = new UserTimeline.Builder()
+                        .screenName("twitterdev")
+                        .build();
+                final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
+                        .setTimeline(userTimeline)
+                        .build();
+                rvContacts.setAdapter(adapter);
 
 
             }
@@ -177,16 +200,16 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    mPosition=0;
+                    mPosition = 0;
                     return "SECTION 1";
                 case 1:
-                    mPosition=1;
+                    mPosition = 1;
                     return "SECTION 2";
                 case 2:
-                    mPosition=2;
+                    mPosition = 2;
                     return "SECTION 3";
                 case 3:
-                    mPosition=3;
+                    mPosition = 3;
                     return "WE BE DUBBIN";
             }
             return null;

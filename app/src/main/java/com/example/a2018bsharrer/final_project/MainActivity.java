@@ -1,18 +1,19 @@
 package com.example.a2018bsharrer.final_project;
 
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,18 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
 
-import com.twitter.sdk.android.core.Twitter;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,41 +48,54 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private int mPosition = 0;
+    private UserTimeline userTimelines;
+    private TweetTimelineListAdapter mAdapters;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient mClients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Twitter.initialize(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig("cThhXIHv0R5kBDbz9d8Ulmgvn", "vDLhtSrVkEGktH2Ts1p1TFZ48n9INcvDVB1QNNAt9COjpdwUzR"))
+                .debug(true)
+                .build();
+        Twitter.initialize(config);
+        userTimelines= new UserTimeline.Builder().screenName("cab_tj").build();
+        mAdapters= new TweetTimelineListAdapter.Builder(this).setTimeline(userTimelines).build();
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Share this app with your friends!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
+    public TweetTimelineListAdapter getData(){
+        return mAdapters;
+    }
+
 
 
     @Override
@@ -112,21 +123,22 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
+
     public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static int mPosition = 0;
-        private static final String ARG_SECTION_NUMBER = "section_number";
+
+            private static int mPosition = 1;
+            private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
+
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             mPosition = sectionNumber;
@@ -140,38 +152,29 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView;
-            if (getArguments().getInt(ARG_SECTION_NUMBER) != 1) {
+
+
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 0) {
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            } else {
+            }
+            else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2){
+                rootView = inflater.inflate(R.layout.fragment_ben, container, false);
+            }
+            else {
                 rootView = inflater.inflate(R.layout.fragment_jacob, container, false);
+                ListView t = (ListView)rootView.findViewById(R.id.listid);
+                MainActivity temp = (MainActivity)getActivity();
+                TweetTimelineListAdapter a =temp.getData();
 
 
-                ListView rvContacts = (ListView) rootView.findViewById(R.id.listid);
-
-                /*
-                ArrayList<Tweet> mTweet = Tweet.createImprovedList();
-                // Create adapter passing in the sample user data
-                TweetAdapter mAdapter = new TweetAdapter(getActivity(), mTweet);
-                // Attach the adapter to the recyclerview to populate items
-                rvContacts.setAdapter(mAdapter);
-                // Set layout manager to position the items
-                rvContacts.setLayoutManager(new LinearLayoutManager(getActivity()));
-                */
-                final UserTimeline userTimeline = new UserTimeline.Builder()
-                        .screenName("twitterdev")
-                        .build();
-                final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
-                        .setTimeline(userTimeline)
-                        .build();
-                rvContacts.setAdapter(adapter);
+                t.setAdapter(a);
 
 
             }
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -187,13 +190,30 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            /*
+            switch (position) {
+                case 0:
+                    jacob_pg asup = new jacob_pg();
+                    return asup;
+                case 1:
+                    jacob_pg basup = new jacob_pg();
+                    return basup;
+                case 2:
+                    jacob_pg kasup = new jacob_pg();
+                    return kasup;
+                case 3:
+                    jacob_pg lasup = new jacob_pg();
+                    return lasup;
+            }
+            return null;
+            */
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 3;
         }
 
         @Override
@@ -201,16 +221,13 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     mPosition = 0;
-                    return "SECTION 1";
+                    return "Games";
                 case 1:
                     mPosition = 1;
-                    return "SECTION 2";
+                    return "Feed";
                 case 2:
                     mPosition = 2;
-                    return "SECTION 3";
-                case 3:
-                    mPosition = 3;
-                    return "WE BE DUBBIN";
+                    return "Players";
             }
             return null;
         }

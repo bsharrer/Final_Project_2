@@ -1,7 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:stretchColumns="1">
 
-</LinearLayout>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Swimming"
+            android:padding="3dip"
+            android:textSize="30sp"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"/>
+        <TextView
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Captains"
+            android:padding="3dip"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_column="1"
+            android:text="Ben Sharrer"
+            android:padding="3dip"
+            android:textAlignment="viewStart"/>
+
+        <TextView
+            android:text="(Fly/IM)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Melanie Le"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Henry Zhang"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Back)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Cassie Quach"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Back)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Militsa Sortirova"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Sydney Harrington"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free/Fly)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Nithin Bagal"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Isabela Huckabee"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Dive)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Seniors"
+            android:padding="3dip"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
+        <TextView
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Jacob Blindenbach"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Breast)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Jonathan Pollock"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free/Breast)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Edward Shen"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Lynn Bai"
+            android:padding="3dip" />
+        <TextView
+            android:text="(Free)"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TableRow>
+
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+    <TableRow>
+        <TextView
+            android:text="X"
+            android:padding="3dip" />
+
+    </TableRow>
+
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Quit"
+            android:padding="3dip" />
+    </TableRow>
+</TableLayout>

@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,8 @@ import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,8 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 .debug(true)
                 .build();
         Twitter.initialize(config);
+
         userTimelines= new UserTimeline.Builder().screenName("cab_tj").build();
+
         mAdapters= new TweetTimelineListAdapter.Builder(this).setTimeline(userTimelines).build();
+
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -130,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
 
-            private static int mPosition = 1;
+            private static int mPosition = 0;
             private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
@@ -155,19 +162,33 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 0) {
-                rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                rootView = inflater.inflate(R.layout.fragment_sachit, container, false);
+                RecyclerView rvContacts = (RecyclerView)rootView.findViewById(R.id.rvContacts);
+
+                // Initialize contacts
+                ArrayList<Tweet> mTweet = Tweet.createImprovedList();
+                // Create adapter passing in the sample user data
+                TweetAdapter mAdapter = new TweetAdapter(getActivity(), mTweet);
+                // Attach the adapter to the recyclerview to populate items
+                rvContacts.setAdapter(mAdapter);
+                // Set layout manager to position the items
+                rvContacts.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
             else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 rootView = inflater.inflate(R.layout.fragment_ben, container, false);
             }
             else {
                 rootView = inflater.inflate(R.layout.fragment_jacob, container, false);
+
+
                 ListView t = (ListView)rootView.findViewById(R.id.listid);
                 MainActivity temp = (MainActivity)getActivity();
                 TweetTimelineListAdapter a =temp.getData();
 
 
                 t.setAdapter(a);
+                
+
 
 
             }

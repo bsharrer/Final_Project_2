@@ -40,25 +40,13 @@ public class Tweet {
     }
     public static ArrayList<Tweet> createImprovedList(){
         ArrayList<Tweet> contacts = new ArrayList<Tweet>();
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
-        contacts.add(new Tweet("Mom","I love Donald!"));
+        contacts.add(new Tweet("TJHHST - Madison (Basketball)","50-46"));
+        contacts.add(new Tweet("TJHHST - Marshal (Baseball)","20-14"));
+        contacts.add(new Tweet("TJHHST - Freedom (Soccer)","1-4"));
+        contacts.add(new Tweet("TJHHST - Jon Champe (Swimming)","245-146"));
+        contacts.add(new Tweet("TJHHST - Langley (Basketball)","48-86"));
+        contacts.add(new Tweet("TJHHST - Dominion (Baseball)","5-4"));
+
         return contacts;
     }
     public static ArrayList<Tweet> createTweetList(){
